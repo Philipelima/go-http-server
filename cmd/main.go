@@ -13,10 +13,8 @@ func hello(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Not Allowed", http.StatusMethodNotAllowed)
 	}
 
-	fmt.Fprintf(w, "<h1>Hello World</h1>")
+	fmt.Fprintf(w, "<h1>Hello, Server</h1>")
 }
-
-
 
 func main() {
 
@@ -28,5 +26,4 @@ func main() {
 	server.Get("/hello-world", hello)
 
 	server.Run()
-
 }
