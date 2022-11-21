@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/philipelima/http-server/server"
+	"github.com/philipelima/http-server/internal/server"
 )
 
 func hello(w http.ResponseWriter, r *http.Request) {
