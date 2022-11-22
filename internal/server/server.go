@@ -3,6 +3,8 @@ package server
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/philipelima/http-server/types"
 )
 
 type ServerSettings struct {
@@ -15,8 +17,6 @@ type Server struct {
 	settings  ServerSettings
 }
 
-type Callback func(http.ResponseWriter, *http.Request)
-
 func (s *Server) SetSettings(ip string, port string) {
 	s.settings = ServerSettings{ip: ip, port: port}
 }
@@ -26,9 +26,11 @@ func (s *Server) SetDirectory(directory string) {
 }
 
 func (s *Server) Run() {
+
 	s.start()
 
-	fileHandler := http.FileServer(http.Dir(s.directory))
+	fileDir := http.Dir(s.directory)
+	fileHandler := http.FileServer(fileDir)
 
 	http.Handle("/", fileHandler)
 
@@ -37,15 +39,14 @@ func (s *Server) Run() {
 	}
 }
 
-func (s *Server) Get(pattern string, function Callback) {
+func (s *Server) Get(pattern string, function types.Callback) {
 	http.HandleFunc(pattern, function)
 }
 
-
 func (s *Server) start() {
 
-	fmt.Printf("\n Starting server on %s:%s...\n", s.settings.ip, s.settings.port)
-	fmt.Println(" Directory: ", s.directory)
+	fmt.Printf("\nStarting server on %s:%s...\n", s.settings.ip, s.settings.port)
+	fmt.Println("Directory: ", s.directory)
 	fmt.Println("\n ")
 
 }
