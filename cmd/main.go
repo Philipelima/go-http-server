@@ -23,7 +23,7 @@ func main() {
 	server.SetDirectory("./static")
 	server.SetSettings("127.0.0.1", "4000")
 
-	server.Get("/hello-world", hello)
+	server.Get("/hello-server", hello)
 
 	server.Run()
 }
